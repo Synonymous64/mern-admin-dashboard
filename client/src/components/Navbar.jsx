@@ -4,8 +4,10 @@ import FlexBetween from './FlexBetween';
 import { useDispatch } from 'react-redux';
 import { setMode } from 'state';
 import profileImage from 'assets/profile.jpg';
-import { AppBar, useTheme, Toolbar, IconButton, InputBase } from '@mui/material';
-const Navbar = () => {
+import { AppBar, useTheme, Toolbar, IconButton, InputBase, useMediaQuery } from '@mui/material';
+
+
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const dispatch = useDispatch();
     const theme = useTheme();
     return (
@@ -19,14 +21,14 @@ const Navbar = () => {
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 {/* the left side */}
                 <FlexBetween >
-                    <IconButton onClick={() => console.log("open/close sidebar")}>
+                    <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                         <MenuIcon />
                     </IconButton>
                     <FlexBetween
                         backgroundColor={theme.palette.background.alt}
                         borderRadius="9px"
                         gap="3rem"
-                        p="0.1rem 0.5rem"
+                        p="0.1rem 1.5rem"
                     >
                         <InputBase placeholder='Search...' />
                         <IconButton>
@@ -34,7 +36,7 @@ const Navbar = () => {
                         </IconButton>
                     </FlexBetween>
                 </FlexBetween>
-                {/* Right side */}
+                {/* right side */}
                 <FlexBetween gap="1.5rem">
                     <IconButton onClick={() => dispatch(setMode())}>
                         {theme.palette.mode === 'dark' ? (
@@ -42,6 +44,9 @@ const Navbar = () => {
                         ) : (
                             <LightModeOutlined sx={{ fontSize: "25px" }} />
                         )}
+                    </IconButton>
+                    <IconButton>
+                        <SettingsOutlined sx={{ fonstSinze: "25px" }} />
                     </IconButton>
                 </FlexBetween>
             </Toolbar>
