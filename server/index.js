@@ -6,9 +6,15 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import clientRoutes from './routes/client.js';
-import generalRoutes from './routes/generalRoutes.js';
+import generalRoutes from './routes/general.js';
 import managementRoutes from './routes/managementRoutes.js';
 import salesRoutes from './routes/salesRoutes.js';
+
+
+// data imports
+import User from './models/User.js';
+import { dataUser } from './data/index.js';
+
 
 /** CONFIGURATION */
 
@@ -34,6 +40,8 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
 }).then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    // Only add data only one time
+    // User.insertMany(dataUser);
 }).catch((error) => {
     console.log(`${error} did not connect`);
 })
